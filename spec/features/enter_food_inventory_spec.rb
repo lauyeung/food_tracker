@@ -11,6 +11,27 @@ feature 'user enters food inventory', %Q{
 # * If I do not specify the required information, I am prompted to fix errors and to resubmit
 # * If I specify the required information, my inventory entry is recorded.
 
+  scenario 'user does not specify valid information' do
+    visit new_food_inventory_item_path
+    click_on 'Create Food inventory item'
+    expect(page).to have_content "Title can't be blank"
+    expect(page).to have_content "Description can't be blank"
+    expect(page).to have_content "Quantity can't be blank"
+  end
 
+  scenario 'user specifies valid information' do
+    title = "Cookies"
+    description = "Perfectly chewy"
+    quantity = 100
+
+    visit new_food_inventory_item_path
+    click_on 'Create Food inventory item'
+    fill_in 'Title', with: title
+    fill_in 'Description', with: description
+    fill_in 'Quantity', with: quantity
+    expect(page).to have_content title
+    expect(page).to have_content description
+    expect(page).to have_content quantity.to_s
+  end
 
 end

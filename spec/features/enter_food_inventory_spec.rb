@@ -14,9 +14,7 @@ feature 'user enters food inventory', %Q{
   scenario 'user does not specify valid information' do
     visit new_food_inventory_item_path
     click_on 'Create Food inventory item'
-    expect(page).to have_content "Title can't be blank"
-    expect(page).to have_content "Description can't be blank"
-    expect(page).to have_content "Quantity can't be blank"
+    expect(page).to have_content "can't be blank"
   end
 
   scenario 'user specifies valid information' do
@@ -29,6 +27,7 @@ feature 'user enters food inventory', %Q{
     fill_in 'Title', with: title
     fill_in 'Description', with: description
     fill_in 'Quantity', with: quantity
+    click_on 'Create Food inventory item'
     expect(page).to have_content title
     expect(page).to have_content description
     expect(page).to have_content quantity.to_s
